@@ -332,8 +332,16 @@ class _MyAppState extends State<MyApp> {
                       ElevatedButton(onPressed: askUser, child: const Text('Survey dialog')),
                       Row(
                         children: <Widget>[
-                          Text('Password: '),
-                          Expanded(child: TextField(controller: _password))
+                          const Text('Password:'),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 0 , 0 , 0),
+                              child: TextField(
+                                controller: _password,
+                                obscureText: true
+                                )
+                              ), 
+                            ),
                         ],
                       )
                 ]
