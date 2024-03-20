@@ -104,11 +104,47 @@ class _MyAppState extends State<MyApp> {
     if (picked != null) setState(() => date = picked.toString());
   }
 
+  late List<NavigationDestination> navigationItems;
+
+  @override
+  void initState() {
+    super.initState();
+    navigationItems = <NavigationDestination>[];
+    navigationItems.add(const NavigationDestination(icon: Icon(Icons.people), label: 'People'));
+    navigationItems.add(const NavigationDestination(icon: Icon(Icons.weekend), label: 'Weekend'));
+    navigationItems.add(const NavigationDestination(icon: Icon(Icons.message), label: 'Message'));
+  }
+
+  int _navigationIndex = 0;
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text("My First Text"),
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary
+      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      actions: <Widget>[
+        IconButton(onPressed: () {}, icon: Icon(Icons.add))
+      ],
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {},
+      mini: true,
+      backgroundColor: Colors.red,
+      child: Icon(Icons.add),
+    ),
+    drawer: Drawer(
+      child: Container(
+        padding: EdgeInsets.all(32),
+        child: Column(
+          children: <Widget>[
+            const Text('Hello Drawer'),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+               child: const Text("Close")
+               )
+          ]
+          ),
+      ),
     ),
     body: Container(
           padding: EdgeInsets.all(32),
@@ -169,7 +205,21 @@ class _MyAppState extends State<MyApp> {
               ),
             ) 
           ),
-        )
+        ),
+        persistentFooterButtons: <Widget>[
+          IconButton(onPressed: () {}, icon: const Icon(Icons.timer)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.watch)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
+        ],
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: _navigationIndex,
+          destinations: navigationItems,
+          onDestinationSelected: (int itemIndex) {
+            setState(() {
+              _navigationIndex = itemIndex;              
+            });
+          })
+          
   );
 
 }
