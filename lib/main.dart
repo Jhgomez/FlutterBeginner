@@ -82,6 +82,10 @@ class _MyAppState extends State<MyApp> {
 
   void toggleSwitch(bool isSelected) => setState(() => isSwitchOn = isSelected);
 
+  bool isTileSwitchOn = false;
+
+  void toggleTileSwitch(bool isSelected) => setState(() => isTileSwitchOn = isSelected);
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -126,7 +130,19 @@ class _MyAppState extends State<MyApp> {
                     makeRadios(),
                     makeTileRadios(),
                     Switch(value: isSwitchOn, onChanged: toggleSwitch),
-                    
+                    SwitchListTile(
+                      value: isTileSwitchOn,
+                      onChanged: toggleTileSwitch,
+                      title: const Text(
+                        'Meow', 
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                           color: 
+                           Colors.purple
+                           ),
+                           ),
+                           controlAffinity: ListTileControlAffinity.leading,
+                      )
                 ]
               )
           ),
