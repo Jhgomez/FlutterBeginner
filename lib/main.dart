@@ -86,6 +86,10 @@ class _MyAppState extends State<MyApp> {
 
   void toggleTileSwitch(bool isSelected) => setState(() => isTileSwitchOn = isSelected);
 
+  double _sliderProgress = 0;
+
+  void setSliderProgress(double progress) => setState(() => _sliderProgress = progress);
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -143,7 +147,8 @@ class _MyAppState extends State<MyApp> {
                            ),
                            ),
                            controlAffinity: ListTileControlAffinity.leading,
-                      )
+                      ),
+                      Slider(value: _sliderProgress, onChanged: setSliderProgress)
                 ]
               ),
             ) 
