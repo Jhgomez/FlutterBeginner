@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
+
 void main() {
   runApp(MaterialApp(
     home: MyApp(),
@@ -236,6 +238,9 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /* This is how to capture input "the easy way" */
+  final TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -324,7 +329,13 @@ class _MyAppState extends State<MyApp> {
                       ElevatedButton(onPressed: showSnackBar, child: const Text('Show Snack Bar')),
                       ElevatedButton(onPressed: () => showAlert(context, 'Alert test'), child: const Text('Show Alert')),
                       Text(answer),
-                      ElevatedButton(onPressed: askUser, child: const Text('Survey dialog'))
+                      ElevatedButton(onPressed: askUser, child: const Text('Survey dialog')),
+                      Row(
+                        children: <Widget>[
+                          Text('Password: '),
+                          Expanded(child: TextField(controller: _password))
+                        ],
+                      )
                 ]
               ),
             ) 
