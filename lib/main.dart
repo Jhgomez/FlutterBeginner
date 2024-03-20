@@ -104,6 +104,17 @@ class _MyAppState extends State<MyApp> {
     if (picked != null) setState(() => date = picked.toString());
   }
 
+  late List<BottomNavigationBarItem> navigationItems;
+
+  @override
+  void initState() {
+    super.initState();
+    navigationItems = <BottomNavigationBarItem>[];
+    navigationItems.add(const BottomNavigationBarItem(icon: Icon(Icons.people), label: 'People'));
+    navigationItems.add(const BottomNavigationBarItem(icon: Icon(Icons.weekend), label: 'Weekend'));
+    navigationItems.add(const BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Message'));
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -198,6 +209,7 @@ class _MyAppState extends State<MyApp> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.watch)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
         ],
+        bottomNavigationBar: BottomNavigationBar(items: navigationItems),
   );
 
 }
