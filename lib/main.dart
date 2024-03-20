@@ -95,7 +95,8 @@ class _MyAppState extends State<MyApp> {
     body: Container(
           padding: EdgeInsets.all(32),
           child: Center(
-            child: Column(
+            child: SingleChildScrollView(
+              child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(_text),
@@ -144,7 +145,8 @@ class _MyAppState extends State<MyApp> {
                            controlAffinity: ListTileControlAffinity.leading,
                       )
                 ]
-              )
+              ),
+            ) 
           ),
         )
   );
