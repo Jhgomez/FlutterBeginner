@@ -117,6 +117,33 @@ class _MyAppState extends State<MyApp> {
 
   int _navigationIndex = 0;
 
+  void showBottom() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (myContext) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                "Some info here",
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontWeight: FontWeight.bold
+                  )
+                ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Close")
+                )
+            ],
+          ),
+        );
+      }
+      );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -200,7 +227,8 @@ class _MyAppState extends State<MyApp> {
                       ),
                       Slider(value: _sliderProgress, onChanged: setSliderProgress),
                       Text(date),
-                      ElevatedButton(onPressed: selectedDate, child: const Text('Display Calendar'))
+                      ElevatedButton(onPressed: selectedDate, child: const Text('Display Calendar')),
+                      ElevatedButton(onPressed: showBottom, child: const Text("Show Buttom Sheet"))
                 ]
               ),
             ) 
