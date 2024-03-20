@@ -192,7 +192,12 @@ class _MyAppState extends State<MyApp> {
               ),
             ) 
           ),
-        )
+        ),
+        persistentFooterButtons: <Widget>[
+          IconButton(onPressed: () {}, icon: const Icon(Icons.timer)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.watch)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
+        ],
   );
 
 }
