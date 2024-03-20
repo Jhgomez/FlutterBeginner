@@ -113,6 +113,12 @@ class _MyAppState extends State<MyApp> {
         IconButton(onPressed: () {}, icon: Icon(Icons.add))
       ],
     ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {},
+      mini: true,
+      backgroundColor: Colors.red,
+      child: Icon(Icons.add),
+    ),
     body: Container(
           padding: EdgeInsets.all(32),
           child: Center(
