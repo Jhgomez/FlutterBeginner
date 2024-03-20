@@ -97,7 +97,7 @@ class _MyAppState extends State<MyApp> {
     DateTime? picked = await showDatePicker(
       context: context, 
       firstDate: DateTime(2020), 
-      lastDate: DateTime(2024),
+      lastDate: DateTime(2024, 12, 31),
       initialDate: DateTime.now()
       );
     
