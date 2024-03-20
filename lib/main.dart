@@ -176,7 +176,7 @@ class _MyAppState extends State<MyApp> {
           title: Text(message),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.of(context).pop, child: const Text('Ok'))
+              onPressed: () => Navigator.pop(context), child: const Text('Ok'))
           ],
         );
       }
