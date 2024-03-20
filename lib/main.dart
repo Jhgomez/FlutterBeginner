@@ -167,6 +167,23 @@ class _MyAppState extends State<MyApp> {
         );
   }
 
+  /* Code used to show alert dialog */
+  Future showAlert(BuildContext context, String message) async {
+    return showDialog(
+      context: context, 
+      builder: ((context) {
+        return AlertDialog(
+          title: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop, child: const Text('Ok'))
+          ],
+        );
+      }
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -252,7 +269,8 @@ class _MyAppState extends State<MyApp> {
                       Text(date),
                       ElevatedButton(onPressed: selectedDate, child: const Text('Display Calendar')),
                       ElevatedButton(onPressed: showBottom, child: const Text('Show Buttom Sheet')),
-                      ElevatedButton(onPressed: showSnackBar, child: const Text('Show Snack Bar'))
+                      ElevatedButton(onPressed: showSnackBar, child: const Text('Show Snack Bar')),
+                      ElevatedButton(onPressed: () => showAlert(context, 'Alert test'), child: const Text('Show Alert'))
                 ]
               ),
             ) 
