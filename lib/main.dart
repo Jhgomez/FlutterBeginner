@@ -53,6 +53,31 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  int? _selectedTileRadio = 0;
+
+  void setSelectedTileRadio(int? selected) => setState(() => _selectedTileRadio = selected);
+
+  Widget makeTileRadios() {
+    List<Widget> radios = <Widget>[];
+    for(int i = 0; i<3 ; i++) {
+      radios.add(
+        RadioListTile(
+          value: i,
+          groupValue: _selectedRadio,
+          onChanged: setSelectedTileRadio,
+          activeColor: Colors.green,
+          controlAffinity: ListTileControlAffinity.leading,
+          title: Text('Item: $i'),
+          subtitle: Text('sub title')
+          )
+      );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: radios,
+    );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -94,7 +119,8 @@ class _MyAppState extends State<MyApp> {
                     secondary: Icon(Icons.archive),
                     activeColor: Colors.blue,
                     ),
-                    makeRadios()
+                    makeRadios(),
+                    makeTileRadios()
                 ]
               )
           ),
