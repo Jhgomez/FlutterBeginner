@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(MaterialApp(
@@ -14,11 +15,93 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _text = 'Hello';
+  String _input = '';
 
   void setNewText() {
-    setState(() {
-      _text = DateTime.now().toString();
-    });
+    setState(() =>_text = DateTime.now().toString());
+  }
+
+  void onChange(String value) {
+    setState(() => _input = 'Change: $value' );
+  }
+
+  void onSubmit(String value) {
+    setState(() => _input = 'Submit: $value' );
+  }
+
+  bool? _selected = false;
+
+  void toggleSelectionState(bool? isSelected) => setState(() => _selected = isSelected);
+
+  bool? _isTileSelected = false;
+
+  void toggleTileState(bool? isSelected) => setState(() => _isTileSelected = isSelected);
+
+  int? _selectedRadio = 0;
+
+  void setSelectedRadio(int? selected) => setState(() => _selectedRadio = selected);
+
+  Widget makeRadios() {
+    List<Widget> radios = <Widget>[];
+    for(int i = 0; i<3 ; i++) {
+      radios.add(
+        Radio(value: i, groupValue: _selectedRadio, onChanged: setSelectedRadio)
+      );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: radios,
+    );
+  }
+
+  int? _selectedTileRadio = 0;
+
+  void setSelectedTileRadio(int? selected) => setState(() => _selectedTileRadio = selected);
+
+  Widget makeTileRadios() {
+    List<Widget> radios = <Widget>[];
+    for(int i = 0; i<3 ; i++) {
+      radios.add(
+        RadioListTile(
+          value: i,
+          groupValue: _selectedTileRadio,
+          onChanged: setSelectedTileRadio,
+          activeColor: Colors.green,
+          controlAffinity: ListTileControlAffinity.leading,
+          title: Text('Item: $i'),
+          subtitle: const Text('sub title')
+          )
+      );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: radios,
+    );
+  }
+
+  bool isSwitchOn = false;
+
+  void toggleSwitch(bool isSelected) => setState(() => isSwitchOn = isSelected);
+
+  bool isTileSwitchOn = false;
+
+  void toggleTileSwitch(bool isSelected) => setState(() => isTileSwitchOn = isSelected);
+
+  double _sliderProgress = 0;
+
+  void setSliderProgress(double progress) => setState(() => _sliderProgress = progress);
+
+  String date = '';
+  
+  Future selectedDate() async {
+    DateTime? picked = await showDatePicker(
+      context: context, 
+      firstDate: DateTime(2020), 
+      lastDate: DateTime(2024, 12, 31),
+      initialDate: DateTime.now()
+      );
+    
+    if (picked != null) setState(() => date = picked.toString());
   }
 
   @override
@@ -30,7 +113,8 @@ class _MyAppState extends State<MyApp> {
     body: Container(
           padding: EdgeInsets.all(32),
           child: Center(
-            child: Column(
+            child: SingleChildScrollView(
+              child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(_text),
@@ -38,9 +122,52 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => setNewText(),
                   child: const Text('Change')
                   ),
-                  IconButton(icon: Icon(Icons.add), onPressed: setNewText)
+                  IconButton(icon: Icon(Icons.add), onPressed: setNewText),
+                  Text(_input),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Hello',
+                      hintText: 'Hint',
+                      icon: Icon(Icons.people)
+                    ),
+                    autocorrect: true,
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    onChanged: onChange,
+                    onSubmitted: onSubmit,
+                  ),
+                  Checkbox(value: _selected, onChanged: toggleSelectionState),
+                  CheckboxListTile(
+                    value: _isTileSelected,
+                    onChanged: toggleTileState,
+                    title: const Text('Toggle it'),
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    subtitle: const Text("Me again"),
+                    secondary: Icon(Icons.archive),
+                    activeColor: Colors.blue,
+                    ),
+                    makeRadios(),
+                    makeTileRadios(),
+                    Switch(value: isSwitchOn, onChanged: toggleSwitch),
+                    SwitchListTile(
+                      value: isTileSwitchOn,
+                      onChanged: toggleTileSwitch,
+                      title: const Text(
+                        'Meow', 
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                           color: 
+                           Colors.purple
+                           ),
+                           ),
+                           controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                      Slider(value: _sliderProgress, onChanged: setSliderProgress),
+                      Text(date),
+                      ElevatedButton(onPressed: selectedDate, child: const Text('Display Calendar'))
                 ]
-              )
+              ),
+            ) 
           ),
         )
   );
