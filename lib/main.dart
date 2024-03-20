@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new MaterialApp(
+  runApp(MaterialApp(
     home: MyApp(),
   ));
 }
@@ -13,6 +13,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String _text = 'Hello';
+
+  void setNewText() {
+    setState(() {
+      _text = 'Did it';
+    });
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -22,12 +30,16 @@ class _MyAppState extends State<MyApp> {
     body: Container(
           padding: EdgeInsets.all(32),
           child: Center(
-             child: Column(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-              Text("Hello World")
-            ],
-             )
+                Text(_text),
+                ElevatedButton(
+                  onPressed: () => setNewText(),
+                  child: const Text('Change')
+                  )
+                ],
+              )
           ),
         )
   );
