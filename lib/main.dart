@@ -72,7 +72,10 @@ class _MyAppState extends State<MyApp> {
                     value: _isTileSelected,
                     onChanged: toggleTileState,
                     title: const Text('Toggle it'),
-                    controlAffinity: ListTileControlAffinity.trailing
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    subtitle: const Text("Me again"),
+                    secondary: Icon(Icons.archive),
+                    activeColor: Colors.blue,
                     )
                 ]
               )
