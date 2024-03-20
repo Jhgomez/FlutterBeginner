@@ -108,7 +108,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text("My First Text"),
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary
+      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      actions: <Widget>[
+        IconButton(onPressed: () {}, icon: Icon(Icons.add))
+      ],
     ),
     body: Container(
           padding: EdgeInsets.all(32),
