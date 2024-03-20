@@ -63,12 +63,12 @@ class _MyAppState extends State<MyApp> {
       radios.add(
         RadioListTile(
           value: i,
-          groupValue: _selectedRadio,
+          groupValue: _selectedTileRadio,
           onChanged: setSelectedTileRadio,
           activeColor: Colors.green,
           controlAffinity: ListTileControlAffinity.leading,
           title: Text('Item: $i'),
-          subtitle: Text('sub title')
+          subtitle: const Text('sub title')
           )
       );
     }
