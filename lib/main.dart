@@ -36,6 +36,23 @@ class _MyAppState extends State<MyApp> {
 
   void toggleTileState(bool? isSelected) => setState(() => _isTileSelected = isSelected);
 
+  int? _selectedRadio = 0;
+
+  void setSelectedRadio(int? selected) => setState(() => _selectedRadio = selected);
+
+  Widget makeRadios() {
+    List<Widget> radios = <Widget>[];
+    for(int i = 0; i<3 ; i++) {
+      radios.add(
+        Radio(value: i, groupValue: _selectedRadio, onChanged: setSelectedRadio)
+      );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: radios,
+    );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -76,7 +93,8 @@ class _MyAppState extends State<MyApp> {
                     subtitle: const Text("Me again"),
                     secondary: Icon(Icons.archive),
                     activeColor: Colors.blue,
-                    )
+                    ),
+                    makeRadios()
                 ]
               )
           ),
