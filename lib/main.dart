@@ -115,6 +115,8 @@ class _MyAppState extends State<MyApp> {
     navigationItems.add(const BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Message'));
   }
 
+  int _navigationIndex = 0;
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -209,7 +211,15 @@ class _MyAppState extends State<MyApp> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.watch)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
         ],
-        bottomNavigationBar: BottomNavigationBar(items: navigationItems),
+        bottomNavigationBar: BottomNavigationBar(
+          items: navigationItems,
+          fixedColor: Colors.blue,
+          onTap: (int itemIndex) {
+            setState(() {
+              _navigationIndex = itemIndex;              
+            });
+          })
+          
   );
 
 }
