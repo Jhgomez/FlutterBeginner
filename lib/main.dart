@@ -117,6 +117,7 @@ class _MyAppState extends State<MyApp> {
 
   int _navigationIndex = 0;
 
+/* This function can show a bottom sheet **/
   void showBottom() {
     showModalBottomSheet<void>(
       context: context,
@@ -142,6 +143,28 @@ class _MyAppState extends State<MyApp> {
         );
       }
       );
+  }
+
+  /* Global keys can be accessed anywhere in the application, and we previously needed
+  them to display a snack bar but not any more */
+  // final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+
+  /* Code use to show a snack bar*/
+  void showSnackBar() {
+    // Previously we needed a scaffold state key to display a snack bar
+    // _scaffoldState.currentState.showSnackBar(SnackBar(content: content));
+
+    ScaffoldMessenger
+      .of(context)
+      .showSnackBar(
+       SnackBar(
+          content: const Text('My first snack bar'),
+          action: SnackBarAction(
+            label: 'Undo', 
+            onPressed: () {}
+            ),
+          )
+        );
   }
 
   @override
@@ -228,7 +251,8 @@ class _MyAppState extends State<MyApp> {
                       Slider(value: _sliderProgress, onChanged: setSliderProgress),
                       Text(date),
                       ElevatedButton(onPressed: selectedDate, child: const Text('Display Calendar')),
-                      ElevatedButton(onPressed: showBottom, child: const Text("Show Buttom Sheet"))
+                      ElevatedButton(onPressed: showBottom, child: const Text('Show Buttom Sheet')),
+                      ElevatedButton(onPressed: showSnackBar, child: const Text('Show Snack Bar'))
                 ]
               ),
             ) 
