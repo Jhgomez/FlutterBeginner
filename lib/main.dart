@@ -68,7 +68,12 @@ class _MyAppState extends State<MyApp> {
                     onSubmitted: onSubmit,
                   ),
                   Checkbox(value: _selected, onChanged: toggleSelectionState),
-                  CheckboxListTile(value: value, onChanged: onChanged)
+                  CheckboxListTile(
+                    value: _isTileSelected,
+                    onChanged: toggleTileState,
+                    title: const Text('Toggle it'),
+                    controlAffinity: ListTileControlAffinity.trailing
+                    )
                 ]
               )
           ),
