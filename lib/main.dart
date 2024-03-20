@@ -13,6 +13,9 @@ class MyApp extends StatefulWidget {
 
 }
 
+/* Code to display a simple dialog */
+enum DialogState{YES, NO, MAYBE}
+
 class _MyAppState extends State<MyApp> {
   String _text = 'Hello';
   String _input = '';
@@ -183,6 +186,7 @@ class _MyAppState extends State<MyApp> {
       )
     );
   }
+
 
   @override
   Widget build(BuildContext context) => Scaffold(
