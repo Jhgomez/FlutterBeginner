@@ -78,6 +78,10 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  bool isSwitchOn = false;
+
+  void toggleSwitch(bool isSelected) => setState(() => isSwitchOn = isSelected);
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -120,7 +124,9 @@ class _MyAppState extends State<MyApp> {
                     activeColor: Colors.blue,
                     ),
                     makeRadios(),
-                    makeTileRadios()
+                    makeTileRadios(),
+                    Switch(value: isSwitchOn, onChanged: toggleSwitch),
+                    
                 ]
               )
           ),
