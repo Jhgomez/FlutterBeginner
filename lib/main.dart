@@ -104,15 +104,15 @@ class _MyAppState extends State<MyApp> {
     if (picked != null) setState(() => date = picked.toString());
   }
 
-  late List<BottomNavigationBarItem> navigationItems;
+  late List<NavigationDestination> navigationItems;
 
   @override
   void initState() {
     super.initState();
-    navigationItems = <BottomNavigationBarItem>[];
-    navigationItems.add(const BottomNavigationBarItem(icon: Icon(Icons.people), label: 'People'));
-    navigationItems.add(const BottomNavigationBarItem(icon: Icon(Icons.weekend), label: 'Weekend'));
-    navigationItems.add(const BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Message'));
+    navigationItems = <NavigationDestination>[];
+    navigationItems.add(const NavigationDestination(icon: Icon(Icons.people), label: 'People'));
+    navigationItems.add(const NavigationDestination(icon: Icon(Icons.weekend), label: 'Weekend'));
+    navigationItems.add(const NavigationDestination(icon: Icon(Icons.message), label: 'Message'));
   }
 
   int _navigationIndex = 0;
@@ -211,10 +211,10 @@ class _MyAppState extends State<MyApp> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.watch)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
         ],
-        bottomNavigationBar: BottomNavigationBar(
-          items: navigationItems,
-          fixedColor: Colors.blue,
-          onTap: (int itemIndex) {
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: _navigationIndex,
+          destinations: navigationItems,
+          onDestinationSelected: (int itemIndex) {
             setState(() {
               _navigationIndex = itemIndex;              
             });
