@@ -37,8 +37,9 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   onPressed: () => setNewText(),
                   child: const Text('Change')
-                  )
-                ],
+                  ),
+                  IconButton(icon: Icon(Icons.add), onPressed: setNewText)
+                ]
               )
           ),
         )
