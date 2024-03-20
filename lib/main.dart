@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(MaterialApp(
@@ -90,6 +91,19 @@ class _MyAppState extends State<MyApp> {
 
   void setSliderProgress(double progress) => setState(() => _sliderProgress = progress);
 
+  String date = '';
+  
+  Future selectedDate() async {
+    DateTime? picked = await showDatePicker(
+      context: context, 
+      firstDate: DateTime(2020), 
+      lastDate: DateTime(2024),
+      initialDate: DateTime.now()
+      );
+    
+    if (picked != null) setState(() => date = picked.toString());
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -148,7 +162,9 @@ class _MyAppState extends State<MyApp> {
                            ),
                            controlAffinity: ListTileControlAffinity.leading,
                       ),
-                      Slider(value: _sliderProgress, onChanged: setSliderProgress)
+                      Slider(value: _sliderProgress, onChanged: setSliderProgress),
+                      Text(date),
+                      ElevatedButton(onPressed: selectedDate, child: const Text('Display Calendar'))
                 ]
               ),
             ) 
