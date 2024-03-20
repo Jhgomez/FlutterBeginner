@@ -14,11 +14,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _text = 'Hello';
+  String _input = '';
 
   void setNewText() {
-    setState(() {
-      _text = DateTime.now().toString();
-    });
+    setState(() =>_text = DateTime.now().toString());
+  }
+
+  void onChange(String value) {
+    setState(() => _input = 'Change: $value' );
+  }
+
+  void onSubmit(String value) {
+    setState(() => _input = 'Submit: $value' );
   }
 
   @override
@@ -38,7 +45,20 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => setNewText(),
                   child: const Text('Change')
                   ),
-                  IconButton(icon: Icon(Icons.add), onPressed: setNewText)
+                  IconButton(icon: Icon(Icons.add), onPressed: setNewText),
+                  Text(_input),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Hello',
+                      hintText: 'Hint',
+                      icon: Icon(Icons.people)
+                    ),
+                    autocorrect: true,
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    onChanged: onChange,
+                    onSubmitted: onSubmit,
+                  )
                 ]
               )
           ),
