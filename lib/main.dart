@@ -28,6 +28,10 @@ class _MyAppState extends State<MyApp> {
     setState(() => _input = 'Submit: $value' );
   }
 
+  bool? _selected = false;
+
+  void toggleSelectionState(bool? isSelected) => setState(() => _selected = isSelected);
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -58,7 +62,8 @@ class _MyAppState extends State<MyApp> {
                     keyboardType: TextInputType.number,
                     onChanged: onChange,
                     onSubmitted: onSubmit,
-                  )
+                  ),
+                  Checkbox(value: _selected, onChanged: toggleSelectionState)
                 ]
               )
           ),
