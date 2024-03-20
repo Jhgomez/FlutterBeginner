@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
 
   void setNewText() {
     setState(() {
-      _text = 'Did it';
+      _text = DateTime.now().toString();
     });
   }
 
