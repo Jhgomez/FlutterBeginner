@@ -119,6 +119,20 @@ class _MyAppState extends State<MyApp> {
       backgroundColor: Colors.red,
       child: Icon(Icons.add),
     ),
+    drawer: Drawer(
+      child: Container(
+        padding: EdgeInsets.all(32),
+        child: Column(
+          children: <Widget>[
+            const Text('Hello Drawer'),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+               child: const Text("Close")
+               )
+          ]
+          ),
+      ),
+    ),
     body: Container(
           padding: EdgeInsets.all(32),
           child: Center(
