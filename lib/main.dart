@@ -32,6 +32,10 @@ class _MyAppState extends State<MyApp> {
 
   void toggleSelectionState(bool? isSelected) => setState(() => _selected = isSelected);
 
+  bool? _isTileSelected = false;
+
+  void toggleTileState(bool? isSelected) => setState(() => _isTileSelected = isSelected);
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -63,7 +67,8 @@ class _MyAppState extends State<MyApp> {
                     onChanged: onChange,
                     onSubmitted: onSubmit,
                   ),
-                  Checkbox(value: _selected, onChanged: toggleSelectionState)
+                  Checkbox(value: _selected, onChanged: toggleSelectionState),
+                  CheckboxListTile(value: value, onChanged: onChanged)
                 ]
               )
           ),
