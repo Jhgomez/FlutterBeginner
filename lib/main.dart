@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 /* Code to display a simple dialog */
-enum DialogState{YES, NO, MAYBE}
+enum Answers{YES, NO, MAYBE}
 
 class _MyAppState extends State<MyApp> {
   String _text = 'Hello';
@@ -187,6 +187,54 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  /* Code to display a simple dialog in a practical context*/
+
+  String answer = '';
+
+  void setAnswer(String choice) => setState(() => answer = choice);
+
+  Future askUser() async {
+    switch(
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return  SimpleDialog(
+            title: Text('Do you like flutter?'),
+            children: <Widget>[
+               SimpleDialogOption(
+                child: Text('Yes !!!'),
+                onPressed: () => {
+                  Navigator.pop(context, Answers.YES)
+                },
+              ),
+              SimpleDialogOption(
+                child: Text('NO !!!'),
+                onPressed: () => {
+                  Navigator.pop(context, Answers.NO)
+                },
+              ),
+              SimpleDialogOption(
+                child: Text('Maybe !!!'),
+                onPressed: () => {
+                  Navigator.pop(context, Answers.MAYBE)
+                },
+              )
+            ],
+          );
+        }
+        )
+    ) {
+      case Answers.YES: 
+        setAnswer(Answers.YES.name);
+        break;
+      case Answers.NO: 
+        setAnswer(Answers.NO.name);
+        break;
+      case Answers.MAYBE: 
+        setAnswer(Answers.MAYBE.name);
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -274,7 +322,9 @@ class _MyAppState extends State<MyApp> {
                       ElevatedButton(onPressed: selectedDate, child: const Text('Display Calendar')),
                       ElevatedButton(onPressed: showBottom, child: const Text('Show Buttom Sheet')),
                       ElevatedButton(onPressed: showSnackBar, child: const Text('Show Snack Bar')),
-                      ElevatedButton(onPressed: () => showAlert(context, 'Alert test'), child: const Text('Show Alert'))
+                      ElevatedButton(onPressed: () => showAlert(context, 'Alert test'), child: const Text('Show Alert')),
+                      Text(answer),
+                      ElevatedButton(onPressed: askUser, child: const Text('Survey dialog'))
                 ]
               ),
             ) 
