@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 
 void main() {
   runApp(MaterialApp(
@@ -112,6 +115,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    getListOfCountries();
     navigationItems = <NavigationDestination>[];
     navigationItems.add(const NavigationDestination(icon: Icon(Icons.people), label: 'People'));
     navigationItems.add(const NavigationDestination(icon: Icon(Icons.weekend), label: 'Weekend'));
@@ -126,7 +130,7 @@ class _MyAppState extends State<MyApp> {
       context: context,
       builder: (myContext) {
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -236,6 +240,28 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /* This is how to capture input "the easy way" */
+  final TextEditingController _password = TextEditingController();
+
+  /* Code needed to download and display a list of countries from internet */
+  Map _countries = {};
+
+  void getListOfCountries() async {
+    var url = Uri(
+      scheme: 'http',
+      host: 'country.io',
+      path: 'names.json'
+      );
+
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      setState(() => 
+        _countries = jsonDecode(utf8.decode(response.bodyBytes)) as Map
+      );
+    }
+    print(_countries);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -324,7 +350,80 @@ class _MyAppState extends State<MyApp> {
                       ElevatedButton(onPressed: showSnackBar, child: const Text('Show Snack Bar')),
                       ElevatedButton(onPressed: () => showAlert(context, 'Alert test'), child: const Text('Show Alert')),
                       Text(answer),
-                      ElevatedButton(onPressed: askUser, child: const Text('Survey dialog'))
+                      ElevatedButton(onPressed: askUser, child: const Text('Survey dialog')),
+                      Row(
+                        children: <Widget>[
+                          const Text('Password:'),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 0 , 0 , 0),
+                              child: TextField(
+                                controller: _password,
+                                obscureText: true
+                                )
+                              ), 
+                            ),
+                        ],
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Hola')
+                                    ]
+                                  )
+                                )
+                              )
+                            )
+                          ),
+                      // if we are inside a layout with a defined height we can wrap this widgets inside
+                      // Expanded() so they occupy the space available and if there is more than one they will share same main
+                      // axis available space
+                      Image.asset('images/doggy.jpeg'),
+                      Image.network('https://www.dailypaws.com/thmb/1alEOVgBS65z7VzOeg2ij2SMByY=/288x384/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/golden-cocker-more-golden-bubu.cocker.retriever-5b0639089a244ac8b31831be219f5bd7.jpg'),
+                      const Text('Countries'),
+                      Container(
+      height: 100,
+      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _countries.length,
+                        itemBuilder: (context, index) {
+                          var key = _countries.keys.elementAtOrNull(index);
+                          var country = _countries[key];
+                          List<Widget> countryLabel = [];
+                          if(country != null && key != null) {
+                            countryLabel.addAll(
+                              [
+                                Text('$key :'),
+                                Text(country)
+                              ]
+                            );
+                          } else {
+                            countryLabel.add(
+                              const Text('something went wrong')
+                            );
+                          }
+                          
+                          return Card(
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: countryLabel
+                                )
+                            ),
+                                )
+                          );
+                        }, 
+                        ),
+    )
                 ]
               ),
             ) 
