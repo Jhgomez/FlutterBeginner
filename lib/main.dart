@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -129,7 +126,7 @@ class _MyAppState extends State<MyApp> {
       context: context,
       builder: (myContext) {
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -360,7 +357,12 @@ class _MyAppState extends State<MyApp> {
                                 )
                               )
                             )
-                          )
+                          ),
+                      // if we are inside a layout with a defined height we can wrap this widgets inside
+                      // Expanded() so they occupy the space available and if there is more than one they will share same main
+                      // axis available space
+                      Image.asset('images/doggy.jpeg'),
+                      Image.network('https://www.dailypaws.com/thmb/1alEOVgBS65z7VzOeg2ij2SMByY=/288x384/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/golden-cocker-more-golden-bubu.cocker.retriever-5b0639089a244ac8b31831be219f5bd7.jpg')
                 ]
               ),
             ) 
