@@ -348,14 +348,17 @@ class _MyAppState extends State<MyApp> {
                       const Padding(
                           padding: EdgeInsets.all(16),
                           child: Card(
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text('Hola')
-                                  ],
-                                ),
-                              ),
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Hola')
+                                    ]
+                                  )
+                                )
+                              )
                             )
                           )
                 ]
