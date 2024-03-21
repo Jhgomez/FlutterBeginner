@@ -115,6 +115,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    getListOfCountries();
     navigationItems = <NavigationDestination>[];
     navigationItems.add(const NavigationDestination(icon: Icon(Icons.people), label: 'People'));
     navigationItems.add(const NavigationDestination(icon: Icon(Icons.weekend), label: 'Weekend'));
@@ -242,6 +243,25 @@ class _MyAppState extends State<MyApp> {
   /* This is how to capture input "the easy way" */
   final TextEditingController _password = TextEditingController();
 
+  /* Code needed to download and display a list of countries from internet */
+  Map _countries = {};
+
+  void getListOfCountries() async {
+    var url = Uri(
+      scheme: 'http',
+      host: 'country.io',
+      path: 'names.json'
+      );
+
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      setState(() => 
+        _countries = jsonDecode(utf8.decode(response.bodyBytes)) as Map
+      );
+    }
+    print(_countries);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -365,7 +385,45 @@ class _MyAppState extends State<MyApp> {
                       // Expanded() so they occupy the space available and if there is more than one they will share same main
                       // axis available space
                       Image.asset('images/doggy.jpeg'),
-                      Image.network('https://www.dailypaws.com/thmb/1alEOVgBS65z7VzOeg2ij2SMByY=/288x384/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/golden-cocker-more-golden-bubu.cocker.retriever-5b0639089a244ac8b31831be219f5bd7.jpg')
+                      Image.network('https://www.dailypaws.com/thmb/1alEOVgBS65z7VzOeg2ij2SMByY=/288x384/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/golden-cocker-more-golden-bubu.cocker.retriever-5b0639089a244ac8b31831be219f5bd7.jpg'),
+                      const Text('Countries'),
+                      Container(
+      height: 100,
+      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _countries.length,
+                        itemBuilder: (context, index) {
+                          var key = _countries.keys.elementAtOrNull(index);
+                          var country = _countries[key];
+                          List<Widget> countryLabel = [];
+                          if(country != null && key != null) {
+                            countryLabel.addAll(
+                              [
+                                Text('$key :'),
+                                Text(country)
+                              ]
+                            );
+                          } else {
+                            countryLabel.add(
+                              const Text('something went wrong')
+                            );
+                          }
+                          
+                          return Card(
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: countryLabel
+                                )
+                            ),
+                                )
+                          );
+                        }, 
+                        ),
+    )
                 ]
               ),
             ) 
