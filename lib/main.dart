@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -343,7 +344,20 @@ class _MyAppState extends State<MyApp> {
                               ), 
                             ),
                         ],
-                      )
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Card(
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text('Hola')
+                                  ],
+                                ),
+                              ),
+                            )
+                          )
                 ]
               ),
             ) 
